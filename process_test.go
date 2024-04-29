@@ -26,7 +26,7 @@ func TestParseProcessID(t *testing.T) {
 	}
 }
 
-func BenchmarkProcessList(b *testing.B) {
+func BenchmarkDecodeProcessList(b *testing.B) {
 	data, err := os.ReadFile("./fixtures/processList.json")
 	require.NoError(b, err)
 
@@ -37,7 +37,7 @@ func BenchmarkProcessList(b *testing.B) {
 	}
 }
 
-func BenchmarkProcessListNativJSON(b *testing.B) {
+func BenchmarkDecodeProcessListNativeJSON(b *testing.B) {
 	data, err := os.ReadFile("./fixtures/processList.json")
 	require.NoError(b, err)
 
@@ -45,5 +45,35 @@ func BenchmarkProcessListNativJSON(b *testing.B) {
 		processes := []api.Process{}
 		err := gojson.Unmarshal(data, &processes)
 		require.NoError(b, err)
+	}
+}
+
+func BenchmarkEncodeProcessList(b *testing.B) {
+	data, err := os.ReadFile("./fixtures/processList.json")
+	require.NoError(b, err)
+
+	processes := []api.Process{}
+	err = gojson.Unmarshal(data, &processes)
+	require.NoError(b, err)
+
+	for i := 0; i < b.N; i++ {
+		data, err := json.Marshal(processes)
+		require.NoError(b, err)
+		require.NotEqual(b, 0, len(data))
+	}
+}
+
+func BenchmarkEncodeProcessListNativeJSON(b *testing.B) {
+	data, err := os.ReadFile("./fixtures/processList.json")
+	require.NoError(b, err)
+
+	processes := []api.Process{}
+	err = gojson.Unmarshal(data, &processes)
+	require.NoError(b, err)
+
+	for i := 0; i < b.N; i++ {
+		data, err := gojson.Marshal(processes)
+		require.NoError(b, err)
+		require.NotEqual(b, 0, len(data))
 	}
 }
