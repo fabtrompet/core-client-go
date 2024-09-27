@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/datarhei/core-client-go/v16/api"
+	"github.com/fabtrompet/core-client-go/v16/api"
 )
 
 func (r *restclient) Sessions(collectors []string) (api.SessionsSummary, error) {

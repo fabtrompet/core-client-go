@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/url"
 
-	"github.com/datarhei/core-client-go/v16/api"
+	"github.com/fabtrompet/core-client-go/v16/api"
 )
 
 func (r *restclient) Metadata(key string) (api.Metadata, error) {
