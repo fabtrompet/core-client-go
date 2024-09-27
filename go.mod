@@ -1,4 +1,4 @@
-module github.com/datarhei/core-client-go/v16
+module github.com/fabtrompet/core-client-go/v16
 
 go 1.18
 
